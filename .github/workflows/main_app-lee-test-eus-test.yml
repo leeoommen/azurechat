@@ -68,11 +68,8 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: node-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-      
+          name: Nextjs-site
+    
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -84,7 +81,10 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'app-lee-test-eus-test'
+          app-name:  ${{ secrets.AZURE_APP_SERVICE_NAME }}
           slot-name: 'Production'
-          package: .
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23E8392FBE5D4E6C9F9EF01719160D0F }}
+          package: ${{ github.workspace }}/Nextjs-site.zip
+
+      - name: 🧹 Cleanup
+        run: rm ${{ github.workspace }}/Nextjs-site.zip
