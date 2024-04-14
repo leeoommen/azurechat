@@ -1,4 +1,4 @@
-name: Build & deploy Next.js app to Azure Web App
+  name: Build & deploy Next.js app to Azure Web App
 
 # When this action will be executed
 on:
@@ -54,7 +54,6 @@ jobs:
         with:
           name: Nextjs-site
           path: ./site-deploy/Nextjs-site.zip
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -73,7 +72,7 @@ jobs:
         with:
           app-name:  ${{ secrets.AZURE_APP_SERVICE_NAME }}
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8120A167D6F2414B99E35E0035024EF0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_23E8392FBE5D4E6C9F9EF01719160D0F }}
           package: ${{ github.workspace }}/Nextjs-site.zip
 
       - name: 🧹 Cleanup
